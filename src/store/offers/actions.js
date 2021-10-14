@@ -1,14 +1,44 @@
+import { getFirestore, getDocs, deleteDoc, doc, addDoc, collection } from 'firebase/firestore'
+
 export default {
-  registerOffer (context, data) {
+  async getOffers (context) {
+    try {
+      const result = await getDocs(collection(getFirestore(), 'offers'))
+      const offers = result.docs.map(offer => ({ id: offer.id, ...offer.data() }))
+      context.commit('setOffers', offers)
+    } catch (e) {
+      console.error('Could not load offers', e)
+    }
+  },
+  async registerOffer (context, data) {
     const offerData = {
-      clientId: 'id1',
-      id: '1',
+      clientId: data.clientId,
       offertitle: data.title,
       description: data.description
     }
-    context.commit('registerOffer', offerData)
+    try {
+      const result = await addDoc(collection(getFirestore(), 'offers'), offerData)
+      context.commit('registerOffer', { id: result.id, ...offerData })
+    } catch (e) {
+      console.error('Cannot register offer', e)
+    }
   },
-  removeOffer (context, id) {
-    context.commit('removeOffer', { id })
+  async removeOffer (context, id) {
+    try {
+      await deleteDoc(doc(getFirestore(), 'offers', id))
+      context.commit('removeOffer', { id })
+    } catch (e) {
+      console.error('Cannot remove offer', e)
+    }
+  },
+  removeClientOffers (context, ids) {
+    ids.forEach(async id => {
+      try {
+        await deleteDoc(doc(getFirestore(), 'offers', id))
+        context.commit('removeOffer', { id })
+      } catch (e) {
+        console.error('Cannot remove offer', e)
+      }
+    })
   }
 }

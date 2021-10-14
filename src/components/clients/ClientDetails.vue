@@ -26,6 +26,7 @@
       <ul v-if="hasOffers">
         <offer-item
           v-for="offer in offers"
+          :id="offer.id"
           :key="offer.id"
           :offertitle="offer.offertitle"
           :areas="offer.areas"
@@ -47,8 +48,7 @@ export default {
   props: ['id'],
   data () {
     return {
-      selectedClient: null,
-      offers: []
+      selectedClient: null
     }
   },
   computed: {
@@ -63,11 +63,13 @@ export default {
     },
     hasOffers () {
       return this.$store.getters['offers/hasOffers']
+    },
+    offers () {
+      return this.$store.getters['offers/offers'].filter(offer => offer.clientId === this.id)
     }
   },
   created () {
     this.selectedClient = this.$store.getters['clients/clients'].find(client => client.id === this.id)
-    this.offers = this.$store.getters['offers/offers'].filter(offer => offer.clientId === this.id)
   }
 }
 </script>

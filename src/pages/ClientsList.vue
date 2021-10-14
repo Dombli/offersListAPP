@@ -35,6 +35,11 @@ export default {
     hasClients () {
       return this.$store.getters['clients/hasClients']
     }
+  },
+  created () {
+    if (this.filteredClients === null) {
+      this.$store.dispatch('clients/getClients')
+    }
   }
 }
 </script>

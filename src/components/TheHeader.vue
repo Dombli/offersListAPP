@@ -38,7 +38,7 @@
   justify-content: left;
   padding-left: 30px;
   align-items: top;
-  background-color: #153B50;
+  background-color: rgba(21,59,80,1);
   color: #EFE5DC;
 }
 

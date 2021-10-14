@@ -13,22 +13,7 @@
         @close="toggleClientForm"
         @save-client="saveClient"
       />
-      <br> or <br><br><label for="clients">Choose from existing:</label>
-      <select
-        id="clients"
-        name="clients"
-      >
-        <option
-          v-for="client in clientsList"
-          :key="client.id"
-          :value="client.id"
-        >
-          {{ client.companyName }}
-        </option>
-      </select>
       <br>
-      <!-- Add dropdown list with clients data base -->
-      <!-- Here goes <offer-form> component  -->
       <offer-form
         @show-form="toggleForm"
         @save-offer="saveOffer"
@@ -48,12 +33,6 @@ export default {
     return {
       showForm: false,
       showClientForm: false
-    }
-  },
-  computed: {
-    clientsList () {
-      // console.log(this.$store.getters['clients/clients'])
-      return this.$store.getters['clients/clients']
     }
   },
   methods: {

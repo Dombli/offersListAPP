@@ -11,6 +11,7 @@
           <ul v-if="hasOffers">
             <offer-item
               v-for="offer in filteredOffers"
+              :id="offer.id"
               :key="offer.id"
               :offertitle="offer.offertitle"
               :description="offer.description"
@@ -41,6 +42,17 @@ export default {
     },
     hasOffers () {
       return this.$store.getters['offers/hasOffers']
+    },
+    clients () {
+      return this.$store.getters['clients/clients']
+    }
+  },
+  created () {
+    if (this.filteredOffers === null) {
+      this.$store.dispatch('offers/getOffers')
+    }
+    if (this.clients === null) {
+      this.$store.dispatch('clients/getClients')
     }
   }
 }

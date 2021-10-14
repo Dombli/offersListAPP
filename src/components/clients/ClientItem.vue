@@ -13,7 +13,7 @@
       </base-badge>
     </div>
     <div class="actions">
-      <base-button @click="removeClient('id')">
+      <base-button @click="removeClient(id)">
         Delete
       </base-button>
       <base-button
@@ -43,6 +43,10 @@ export default {
   methods: {
     removeClient (id) {
       this.$store.dispatch('clients/removeClient', id)
+      const clientOfferIds = this.$store.getters['offers/offers']
+        .filter(offer => offer.clientId === id)
+        .map(offer => offer.id)
+      this.$store.dispatch('offers/removeClientOffers', clientOfferIds)
     }
   }
 }

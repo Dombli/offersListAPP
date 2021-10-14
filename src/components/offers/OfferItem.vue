@@ -4,7 +4,7 @@
       <h3>{{ offertitle }}</h3>
       <h4>{{ description }}</h4>
       <div class="actions">
-        <base-button @click="removeOffer('id')">
+        <base-button @click="removeOffer(id)">
           Delete
         </base-button>
         <base-button
@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 li {
   margin: 1rem 0;
-  border: 1px solid #888098;
+  border: 1px solid #dad9d9;
   border-radius: 10px;
   padding: 1rem;
 }

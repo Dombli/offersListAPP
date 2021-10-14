@@ -1,5 +1,28 @@
 <template>
   <form @submit.prevent="submitForm">
+    <br> or <br><br>
+    <div
+      class="form-control"
+      :class="{ invalid: !clientId.isValid }"
+    >
+      <label for="clients">Choose from existing:</label>
+      <select
+        id="clients"
+        v-model.trim="clientId.val"
+        name="clients"
+      >
+        <option
+          v-for="client in clientsList"
+          :key="client.id"
+          :value="client.id"
+        >
+          {{ client.firstName + ' ' + client.lastName }}
+        </option>
+      </select>
+      <p v-if="!clientId.isValid">
+        Please select a client
+      </p>
+    </div>
     <div
       class="form-control"
       :class="{ invalid: !offerTitle.isValid }"
@@ -45,18 +68,35 @@ export default {
         val: '',
         isValid: true
       },
+      clientId: {
+        val: '',
+        isValid: true
+      },
       formIsValid: true
+    }
+  },
+  computed: {
+    clientsList () {
+      return this.$store.getters['clients/clients']
     }
   },
   methods: {
     validateForm () {
       this.formIsValid = true
+      this.offerTitle.isValid = true
+      this.description.isValid = true
+      this.clientId.isValid = true
+
       if (this.offerTitle.val === '') {
         this.offerTitle.isValid = false
         this.formIsValid = false
       }
       if (this.description.val === '') {
         this.description.isValid = false
+        this.formIsValid = false
+      }
+      if (this.clientId.val === '') {
+        this.clientId.isValid = false
         this.formIsValid = false
       }
     },
@@ -67,10 +107,11 @@ export default {
       }
       const formData = {
         title: this.offerTitle.val,
-        description: this.description.val
+        description: this.description.val,
+        clientId: this.clientId.val
       }
       this.$emit('save-offer', formData)
-      this.$emit('show-form', false)
+      this.$emit('show-form')
     }
   }
 }

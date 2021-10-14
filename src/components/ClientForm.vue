@@ -136,7 +136,6 @@ export default {
   },
   methods: {
     validateForm () {
-      console.log(this.lastName.val)
       this.formIsValid = true
       this.firstName.isValid = true
       this.lastName.isValid = true
@@ -178,7 +177,6 @@ export default {
         areas: this.areas.val,
         description: this.description.val
       }
-      console.log(formData)
       this.$emit('save-client', formData)
     }
   }
