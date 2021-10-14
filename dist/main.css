@@ -1,0 +1,48 @@
+
+h3[data-v-d20beb7e] {
+  margin: 40px 0 0;
+}
+ul[data-v-d20beb7e] {
+  list-style-type: none;
+  padding: 0;
+}
+li[data-v-d20beb7e] {
+  display: inline-block;
+  margin: 0 10px;
+}
+a[data-v-d20beb7e] {
+  color: #42b983;
+}
+
+
+.todo[data-v-06160146] {
+    border: solid black 1px;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.todos[data-v-03801601] {
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
+.todos__managament[data-v-03801601] {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.todos__browser-entry[data-v-03801601] {
+  margin: 0.5em;
+}
+.todos__managament-errors[data-v-03801601] {
+  color: red;
+}
+
+
+.todo-view[data-v-4f432dd0]{
+  display: flex;
+  flex-direction: column;
+}
+
