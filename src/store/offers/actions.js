@@ -26,7 +26,7 @@ export default {
   async removeOffer (context, id) {
     try {
       await deleteDoc(doc(getFirestore(), 'offers', id))
-      context.commit('removeOffer', { id })
+      context.commit('removeOffer', id)
     } catch (e) {
       console.error('Cannot remove offer', e)
     }
@@ -35,7 +35,7 @@ export default {
     ids.forEach(async id => {
       try {
         await deleteDoc(doc(getFirestore(), 'offers', id))
-        context.commit('removeOffer', { id })
+        context.commit('removeOffer', id)
       } catch (e) {
         console.error('Cannot remove offer', e)
       }

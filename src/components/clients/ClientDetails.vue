@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="selectedClient">
     <base-card>
       <base-button
         link
@@ -25,7 +25,7 @@
       </h1>
       <ul v-if="hasOffers">
         <offer-item
-          v-for="offer in offers"
+          v-for="offer in filteredOffers"
           :id="offer.id"
           :key="offer.id"
           :offertitle="offer.offertitle"
@@ -61,15 +61,30 @@ export default {
     description () {
       return this.selectedClient.description
     },
+    companyName () {
+      return this.selectedClient.companyName
+    },
     hasOffers () {
       return this.$store.getters['offers/hasOffers']
     },
-    offers () {
-      return this.$store.getters['offers/offers'].filter(offer => offer.clientId === this.id)
+    // offers () {
+    //   return this.$store.getters['offers/offers'].filter(offer => offer.clientId === this.id)
+    // },
+    filteredOffers () {
+      return this.$store.getters['offers/offers']
+    },
+    clients () {
+      return this.$store.getters['clients/clients']
     }
   },
-  created () {
-    this.selectedClient = this.$store.getters['clients/clients'].find(client => client.id === this.id)
+  async created () {
+    if (this.filteredOffers === null) {
+      this.$store.dispatch('offers/getOffers')
+    }
+    if (this.clients === null) {
+      await this.$store.dispatch('clients/getClients')
+    }
+    this.selectedClient = this.clients.find(client => client.id === this.id)
   }
 }
 </script>
